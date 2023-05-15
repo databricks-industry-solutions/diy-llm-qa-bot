@@ -153,7 +153,7 @@ for chunk in text_splitter.split_text(answer):
 
 # COMMAND ----------
 
-# MAGIC %md With the concept of document splitting under our belt, let's write a function to divide our documents into chunks and apply it to our data:
+# MAGIC %md With the concept of document splitting under our belt, let's write a function to divide our documents into chunks and apply it to our data. Note that we are setting the chunk size and overlap to higher values for this step to better align with the [limits](https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them) specified with the Chat-GPT model we will eventually transmit this information to.  You might be able to set these values higher but please note that a fixed number of *tokens* are currently allowed with each Chat-GPT model request and that the entire user prompt (including context) and the generated response must fit within that token limit.  Otherwise, an error will be generated:
 
 # COMMAND ----------
 
