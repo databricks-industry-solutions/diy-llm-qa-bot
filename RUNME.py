@@ -67,17 +67,17 @@ job_json = {
                 "notebook_task": {
                     "notebook_path": f"00_Intro"
                 },
-                "task_key": "diy_llm_qa_bot_01"
+                "task_key": "diy_llm_qa_bot_00"
             },
             {
                 "job_cluster_key": "diy_llm_qa_bot_cluster",
                 "notebook_task": {
                     "notebook_path": f"01_Build_Document_Index"
                 },
-                "task_key": "diy_llm_qa_bot_02",
+                "task_key": "diy_llm_qa_bot_01",
                 "depends_on": [
                     {
-                        "task_key": "diy_llm_qa_bot_01"
+                        "task_key": "diy_llm_qa_bot_00"
                     }
                 ]
             },
@@ -86,25 +86,25 @@ job_json = {
                 "notebook_task": {
                     "notebook_path": f"02_Assemble_Application"
                 },
-                "task_key": "diy_llm_qa_bot_03",
+                "task_key": "diy_llm_qa_bot_02",
                 "depends_on": [
                     {
-                        "task_key": "diy_llm_qa_bot_02"
+                        "task_key": "diy_llm_qa_bot_01"
                     }
                 ]
             },
-            {
-                "job_cluster_key": "diy_llm_qa_bot_cluster",
-                "notebook_task": {
-                    "notebook_path": f"03_Deploy_Application"
-                },
-                "task_key": "diy_llm_qa_bot_04",
-                "depends_on": [
-                    {
-                        "task_key": "diy_llm_qa_bot_03"
-                    }
-                ]
-            }
+            # {
+            #     "job_cluster_key": "diy_llm_qa_bot_cluster",
+            #     "notebook_task": {
+            #         "notebook_path": f"03_Deploy_Application"
+            #     },
+            #     "task_key": "diy_llm_qa_bot_04",
+            #     "depends_on": [
+            #         {
+            #             "task_key": "diy_llm_qa_bot_03"
+            #         }
+            #     ]
+            # }
         ],
         "job_clusters": [
             {

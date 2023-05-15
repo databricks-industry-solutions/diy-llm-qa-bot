@@ -293,7 +293,7 @@ class MLflowQABot(mlflow.pyfunc.PythonModel):
     self.qabot = QABot(llm, retriever, chat_prompt)
 
   def predict(self, context, inputs):
-    questions = list(queries['question'])
+    questions = list(inputs['question'])
 
     # return answer
     return [self.qabot.get_answer(q) for q in questions]
