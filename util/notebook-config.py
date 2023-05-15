@@ -1,32 +1,45 @@
 # Databricks notebook source
-# DBTITLE 1,Kafka config - see the RUNME notebook for instructions on setting up secrets
-kafka_bootstrap_servers = dbutils.secrets.get("solution-accelerator-cicd", "iot-anomaly-kafka-bootstrap-server")
-security_protocol = "SASL_SSL"
-sasl_mechanism = "PLAIN"
-sasl_username = dbutils.secrets.get("solution-accelerator-cicd", "iot-anomaly-sasl-username")
-sasl_password = dbutils.secrets.get("solution-accelerator-cicd", "iot-anomaly-sasl-password")
-topic = "iot_msg_topic"
-sasl_config = f'org.apache.kafka.common.security.plain.PlainLoginModule required username="{sasl_username}" password="{sasl_password}";'
+# MAGIC %md ##Configuration
+# MAGIC
+# MAGIC In this notebook, we will capture all the configuration settings that support the work across those notebooks.
 
 # COMMAND ----------
 
-# DBTITLE 1,Streaming checkpoint location
-checkpoint_path = "/dbfs/tmp/iot-anomaly-detection/checkpoints"
+if 'config' not in locals():
+  config = {}
 
 # COMMAND ----------
 
-# DBTITLE 1,Database settings
-database = "rvp_iot_sa"
+config['kb_documents_path'] = "s3://db-gtm-industry-solutions/data/rcg/diy_llm_qa_bot/"
+config['vector_store_path'] = '/dbfs/tmp/qabot/vector_store' # /dbfs/... is a local file system representation
 
-spark.sql(f"create database if not exists {database}")
+# COMMAND ----------
+
+config['database_name'] = 'qabot'
+
+# create database if not exists
+_ = spark.sql(f"create database if not exists {config['database_name']}")
+
+# set current datebase context
+_ = spark.catalog.setCurrentDatabase(config['database_name'])
+
+# COMMAND ----------
+
+import os
+
+os.environ['OPENAI_API_KEY'] = dbutils.secrets.get("solution-accelerator-cicd", "openai_api")
+
+# COMMAND ----------
+
+config['registered_model_name'] = 'databricks_llm_qabot_solution_accelerator'
 
 # COMMAND ----------
 
 # DBTITLE 1,mlflow settings
 import mlflow
-model_name = "iot_anomaly_detection_xgboost"
+model_name = "qabot"
 username = dbutils.notebook.entry_point.getDbutils().notebook().getContext().userName().get()
-mlflow.set_experiment('/Users/{}/iot_anomaly_detection'.format(username))
+mlflow.set_experiment('/Users/{}/qabot'.format(username))
 
 # COMMAND ----------
 

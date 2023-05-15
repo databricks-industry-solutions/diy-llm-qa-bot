@@ -1,0 +1,150 @@
+[
+  {
+    "question": "how to set metastore on a cluster?",
+    "correct_source": "https://docs.databricks.com/data/metastores/external-hive-metastore.html"
+  },
+  {
+    "question": "How to upload file to DBFS?",
+    "correct_source": "https://docs.databricks.com/dbfs/filestore.html"
+  },
+  {
+    "question": "How to delete a job?",
+    "correct_source": "https://docs.databricks.com/workflows/jobs/jobs.html"
+  },
+  {
+    "question": "how to schedule a job on my notebook?",
+    "correct_source": "https://docs.databricks.com/notebooks/schedule-notebook-jobs.html"
+  },
+  {
+    "question": "how to export the code of the notebook?",
+    "correct_source": "https://docs.databricks.com/notebooks/notebook-export-import.html"
+  },
+  {
+    "question": "how does the autotermination work for a cluster?",
+    "correct_source": "https://docs.databricks.com/clusters/clusters-manage.html"
+  },
+  {
+    "question": "how to copy s3 files to Databricks dbfs?",
+    "correct_source": "https://docs.databricks.com/storage/amazon-s3.html"
+  },
+  {
+    "question": "how to feed parquet files to pytorch training?",
+    "correct_source": "https://docs.databricks.com/external-data/parquet.html"
+  },
+  {
+    "question": "How to migrate a table to UC?",
+    "correct_source": "https://docs.databricks.com/data-governance/unity-catalog/migrate.html"
+  },
+  {
+    "question": "How to load images into Delta?",
+    "correct_source": "https://docs.databricks.com/ingestion/index.html"
+  },
+  {
+    "question": "how to use huggingface on Databricks?",
+    "correct_source": "https://docs.databricks.com/machine-learning/reference-solutions/hugging-face-transformer.html"
+  },
+  {
+    "question": "How to create a service pincipal?",
+    "correct_source": "https://docs.databricks.com/dev-tools/service-principals.html"
+  },
+  {
+    "question": "How to access the storage location of a UC table?",
+    "correct_source": "https://docs.databricks.com/ingestion/copy-into/unity-catalog.html"
+  },
+  {
+    "question": "I have my private pypi repository, how to install from it?",
+    "correct_source": "https://kb.databricks.com/clusters/install-private-pypi-repo"
+  },
+  {
+    "question": "how to find my workspace ID?",
+    "correct_source": "https://kb.databricks.com/administration/find-your-workspace-id"
+  },
+  {
+    "question": "How to mount a delta share to UC?",
+    "correct_source": "https://docs.databricks.com/data-sharing/read-data-open.html"
+  },
+  {
+    "question": "How do I use GPUs on Databricks?",
+    "correct_source": "https://docs.databricks.com/clusters/gpu.html"
+  },
+  {
+    "question": "Does Databricks support ANSI SQL?",
+    "correct_source": "https://docs.databricks.com/sql/language-manual/sql-ref-ansi-compliance.html"
+  },
+  {
+    "question": "How to set a custom runtime version?",
+    "correct_source": "https://kb.databricks.com/clusters/run-a-custom-databricks-runtime-on-your-cluster"
+  },
+  {
+    "question": "How to create pyspark dataframes from pandas dataframes with pandas 2.0.0?",
+    "correct_source": "https://docs.databricks.com/getting-started/dataframes-python.html"
+  },
+  {
+    "question": "How to use Global Temp View as table for join in read_sql_query - DataBricks",
+    "correct_source": "https://kb.databricks.com/sql/global-temp-view-not-found"
+  },
+  {
+    "question": "How do you view your object list when using databricks notebooks?",
+    "correct_source": "https://docs.databricks.com/notebooks/notebooks-code.html"
+  },
+  {
+    "question": "how do you integrate databricks and Fivetran?",
+    "correct_source": "https://docs.databricks.com/partners/ingestion/fivetran.html"
+  },
+  {
+    "question": "how do I get support?",
+    "correct_source": "https://docs.databricks.com/resources/support.html"
+  },
+  {
+    "question": "is Databricks secure?",
+    "correct_source": "https://docs.databricks.com/security/index.html"
+  },
+  {
+    "question": "how to read a UC table",
+    "correct_source": "https://docs.databricks.com/data-governance/unity-catalog/queries.html"
+  },
+  {
+    "question": "how do I block databricks access to my workspace?",
+    "correct_source": "https://docs.databricks.com/administration-guide/genie.html#cawl"
+  },
+  {
+    "question": "how do I view the status of a Databricks service?",
+    "correct_source": "https://docs.databricks.com/resources/status.html"
+  },
+  {
+    "question": "how do I setup KMS encryption for S3?",
+    "correct_source": "https://docs.databricks.com/storage/amazon-s3.html"
+  },
+  {
+    "question": "can I have multiple catalogs in a Unity Catalog metastore?",
+    "correct_source": "https://docs.databricks.com/data-governance/unity-catalog/best-practices.html"
+  },
+  {
+    "question": "what is the difference between Unity Catalog shared and single-user clusters?",
+    "correct_source": "https://docs.databricks.com/data-governance/unity-catalog/best-practices.html"
+  },
+  {
+    "question": "how can I implement row level security in Databricks?",
+    "correct_source": "https://docs.databricks.com/administration-guide/access-control/table-acl.html"
+  },
+  {
+    "question": "what SQL command can I use to create a view with dynamic security for row access?",
+    "correct_source": "https://docs.databricks.com/data-governance/unity-catalog/create-views.html"
+  },
+  {
+    "question": "when does Databricks Runtime 11.3 reach end of support?",
+    "correct_source": "https://docs.databricks.com/release-notes/runtime/releases.html"
+  },
+  {
+    "question": "What’s the difference between dbfs and UC?",
+    "correct_source": "https://docs.databricks.com/dbfs/unity-catalog.html"
+  },
+  {
+    "question": "what are the benefits of lakehouse over a traditional data warehouse?",
+    "correct_source": "https://docs.databricks.com/migration/warehouse-to-lakehouse.html"
+  },
+  {
+    "question": "what’s the difference between spark cache and disk cache in databricks?",
+    "correct_source": "https://docs.databricks.com/optimizations/disk-cache.html"
+  }
+]
