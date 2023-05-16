@@ -22,23 +22,16 @@
 # DBTITLE 1,Import Required Libraries
 import re
 import time
-
 import pandas as pd
-
 import mlflow
-
-from langchain import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.embeddings.openai import OpenAIEmbeddings
-
 from langchain.vectorstores.faiss import FAISS
 from langchain.schema import BaseRetriever
-
 from langchain.prompts import SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate
 from langchain.prompts.base import BasePromptTemplate
 from langchain.prompts import PromptTemplate
-
 from langchain.base_language import BaseLanguageModel
-
 from langchain import LLMChain
 
 # COMMAND ----------
@@ -55,7 +48,7 @@ from langchain import LLMChain
 # COMMAND ----------
 
 # DBTITLE 1,Specify Question
-question = "how to register a model on databricks?"
+question = "How to register a model on databricks?"
 
 # COMMAND ----------
 
@@ -102,7 +95,7 @@ human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_te
 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
 # define model to respond to prompt
-llm = OpenAI(model_name='gpt-3.5-turbo', temperature=0.1)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.1)
 
 # combine prompt and model into a unit of work (chain)
 qa_chain = LLMChain(
@@ -175,7 +168,7 @@ class QABot():
       "no information", "no context", "don't know", "no clear answer", "sorry", 
       "no answer", "no mention", "reminder", "context does not provide", "no helpful answer", 
       "given context", "no helpful", "no relevant", "no question", "not clear",
-      "don't have enough information", " does not have the relevant information"
+      "don't have enough information", " does not have the relevant information", "does not seem to be directly related"
       ]
     
     if answer is None: # bad answer if answer is none
@@ -204,7 +197,7 @@ class QABot():
 
       # attempt to get a response
       try: 
-        result =  qa_chain.generate([{'context': text, 'question': question}])
+        result =  qa_chain.generate([{'context': context, 'question': question}])
         break # if successful response, stop looping
 
       # if rate limit error...
@@ -242,7 +235,7 @@ class QABot():
 
       # get key elements for doc
       text = doc.page_content
-      source = doc.metadata['url']
+      source = doc.metadata['source']
 
       # get an answer from llm
       output = self._get_answer(text, question)
@@ -348,7 +341,7 @@ client.transition_model_version_stage(
 
 # COMMAND ----------
 
-# MAGIC %md We can then retrieve the model from the registery and submit a question to verify the response:
+# MAGIC %md We can then retrieve the model from the registery and submit a few questions to verify the response:
 
 # COMMAND ----------
 
@@ -357,7 +350,11 @@ client.transition_model_version_stage(
 model = mlflow.pyfunc.load_model(f"models:/{config['registered_model_name']}/Production")
 
 # assemble question input
-queries = pd.DataFrame({'question':[question, question]})
+queries = pd.DataFrame({'question':[
+  "How to read data with Delta Sharing?",
+  "What are Delta Live Tables datasets?",
+  "How to set up Unity Catalog?"
+]})
 
 # get a response
 model.predict(queries)
