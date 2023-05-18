@@ -9,10 +9,6 @@
 
 # COMMAND ----------
 
-# MAGIC %pip install databricks-sdk
-
-# COMMAND ----------
-
 # DBTITLE 1,Get Config Settings
 # MAGIC %run "./util/notebook-config"
 
@@ -27,6 +23,11 @@ from mlflow.utils.databricks_utils import get_databricks_host_creds
 
 # COMMAND ----------
 
+# DBTITLE 1,Retrieve the latest Production model version for deployment
+latest_version = mlflow.MlflowClient().get_latest_versions(config['registered_model_name'], stages=['Production'])[0].version
+
+# COMMAND ----------
+
 # MAGIC %md ##Step 1: Deploy Model Serving Endpoint
 # MAGIC
 # MAGIC Models may typically be deployed to model sharing endpoints using either the Databricks workspace user-interface or a REST API.  Because our model depends on the deployment of a sensitive environment variable, we will need to leverage a relatively new model serving feature that is currently only available via the REST API.
@@ -34,6 +35,7 @@ from mlflow.utils.databricks_utils import get_databricks_host_creds
 # MAGIC See our served model config below and notice the `env_vars` part of the served model config - you can now store a key in a secret scope and pass it to the model serving endpoint as an environment variable.
 
 # COMMAND ----------
+
 
 served_models = [
     {
@@ -101,10 +103,10 @@ def update_endpoint():
 
 # DBTITLE 1,Use the defined function to create or update the endpoint
 # gather other inputs the API needs
-latest_version = mlflow.MlflowClient().get_latest_versions(config['registered_model_name'], stages=['Production'])[0].version
 serving_host = spark.conf.get("spark.databricks.workspaceUrl")
 creds = get_databricks_host_creds()
 
+# kick off endpoint creation/update
 if not endpoint_exists():
   create_endpoint()
 else:
@@ -112,7 +114,9 @@ else:
 
 # COMMAND ----------
 
-# MAGIC %md You can follow the link above to access the model serving endpoint we just created. 
+# MAGIC %md You can use the link above to access the model serving endpoint we just created. 
+# MAGIC
+# MAGIC <img src='https://github.com/databricks-industry-solutions/diy-llm-qa-bot/raw/main/image/model_serving_ui.png'>
 
 # COMMAND ----------
 
@@ -133,19 +137,34 @@ import json
 
 endpoint_url = f"""https://{serving_host}/serving-endpoints/{config['serving_endpoint_name']}/invocations"""
 
+
 def create_tf_serving_json(data):
-  return {'inputs': {name: data[name].tolist() for name in data.keys()} if isinstance(data, dict) else data.tolist()}
+    return {
+        "inputs": {name: data[name].tolist() for name in data.keys()}
+        if isinstance(data, dict)
+        else data.tolist()
+    }
+
 
 def score_model(dataset):
-  url = endpoint_url
-  headers = {'Authorization': f'Bearer {creds.token}', 'Content-Type': 'application/json'}
-  ds_dict = {'dataframe_split': dataset.to_dict(orient='split')} if isinstance(dataset, pd.DataFrame) else create_tf_serving_json(dataset)
-  data_json = json.dumps(ds_dict, allow_nan=True)
-  response = requests.request(method='POST', headers=headers, url=url, data=data_json)
-  if response.status_code != 200:
-    raise Exception(f'Request failed with status {response.status_code}, {response.text}')
+    url = endpoint_url
+    headers = {
+        "Authorization": f"Bearer {creds.token}",
+        "Content-Type": "application/json",
+    }
+    ds_dict = (
+        {"dataframe_split": dataset.to_dict(orient="split")}
+        if isinstance(dataset, pd.DataFrame)
+        else create_tf_serving_json(dataset)
+    )
+    data_json = json.dumps(ds_dict, allow_nan=True)
+    response = requests.request(method="POST", headers=headers, url=url, data=data_json)
+    if response.status_code != 200:
+        raise Exception(
+            f"Request failed with status {response.status_code}, {response.text}"
+        )
 
-  return response.json()
+    return response.json()
 
 # COMMAND ----------
 
