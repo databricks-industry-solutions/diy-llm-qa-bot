@@ -209,7 +209,7 @@ metadata_inputs = (
 
 # DBTITLE 1,Load Vector Store
 # identify embedding model that will generate embedding vectors
-embeddings = OpenAIEmbeddings(model='text-embedding-ada-002')
+embeddings = OpenAIEmbeddings(model='text-davinci-003')
 
 # instantiate vector store object
 vector_store = FAISS.from_texts(

@@ -1,4 +1,5 @@
 ![image](https://raw.githubusercontent.com/databricks-industry-solutions/.github/main/profile/solacc_logo_wide.png)
+
 ![CLOUD](https://img.shields.io/badge/CLOUD-AWS+Azure-blue?logo=googlecloud&style=for-the-badge)
 [![POC](https://img.shields.io/badge/POC-10_days-green?style=for-the-badge)](https://databricks.com/try-databricks)
 
@@ -19,7 +20,7 @@ We will tackle these three steps across the following three notebooks:</p>
 * 03: Deploy Application
 </p>
 ___
-<bryan.smith@databricks.com> <vladimir.kolovski@databricks.com> <zhe.wang@databricks.com>
+<vladimir.kolovski@databricks.com> <zhe.wang@databricks.com> <jingting.lu@databricks.com> <bryan.smith@databricks.com>
 
 ---
 
