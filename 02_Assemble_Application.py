@@ -60,7 +60,7 @@ question = "How to register a model on databricks?"
 
 # DBTITLE 1,Retrieve Relevant Documents
 # open vector store to access embeddings
-embeddings = OpenAIEmbeddings(model='text-embedding-ada-002')
+embeddings = OpenAIEmbeddings(model=config['openai_embedding_model'])
 vector_store = FAISS.load_local(embeddings=embeddings, folder_path=config['vector_store_path'])
 
 # configure document retrieval 
@@ -84,18 +84,16 @@ for doc in docs:
 
 # DBTITLE 1,Define Chain to Generate Responses
 # define system-level instructions
-system_message_template = """<|im_start|> You are a helpful assistant built by Databricks, you are good at helping to answer a query based on the context step by step, the context is a document. If the query doesn't form a complete question, just say I don't know. If there is a good answer from the context, try to summarize the context as the answer. If you don't know the answer, just say I don't know. If there is no enough information to determine the answer, just say I don't know. If the context is irrelevant to the question, just say I don't know. <|im_end|>"""
-system_message_prompt = SystemMessagePromptTemplate.from_template(system_message_template)
+system_message_prompt = SystemMessagePromptTemplate.from_template(config['system_message_template'])
 
 # define human-driven instructions
-human_message_template = """<|im_start|> Here is the question {question}. Here is the context: {context}? <|im_end|>"""
-human_message_prompt = HumanMessagePromptTemplate.from_template(human_message_template)
+human_message_prompt = HumanMessagePromptTemplate.from_template(config['human_message_template'])
 
 # combine instructions into a single prompt
 chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
 
 # define model to respond to prompt
-llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.1)
+llm = ChatOpenAI(model_name=config['openai_chat_model'], temperature=config['temperature'])
 
 # combine prompt and model into a unit of work (chain)
 qa_chain = LLMChain(
@@ -306,11 +304,12 @@ with mlflow.start_run():
   _ = (
     mlflow.pyfunc.log_model(
       python_model=model,
-      extra_pip_requirements=['langchain', 'tiktoken', 'openai', 'faiss-cpu'],
+      extra_pip_requirements=['langchain==0.0.166', 'tiktoken==0.4.0', 'openai==0.27.6', 'faiss-cpu==1.7.4'],
       artifact_path='model',
       registered_model_name=config['registered_model_name']
       )
     )
+
 
 # COMMAND ----------
 
@@ -336,7 +335,8 @@ latest_version = client.get_latest_versions(config['registered_model_name'], sta
 client.transition_model_version_stage(
     name=config['registered_model_name'],
     version=latest_version,
-    stage='Production'
+    stage='Production',
+    archive_existing_versions=True
 )
 
 # COMMAND ----------

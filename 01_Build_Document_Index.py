@@ -110,10 +110,10 @@ display(raw_inputs)
 # DBTITLE 1,Retrieve an Example of Long Text
 long_text = (
   raw_inputs
-    .select('text') # get just the answer field
+    .select('text') # get just the text field
     .orderBy(fn.expr("len(text)"), ascending=False) # sort by length
     .limit(1) # get top 1
-     .collect()[0]['text'] # pull answer to a variable
+     .collect()[0]['text'] # pull text to a variable
   )
 
 # display long_text
@@ -127,9 +127,9 @@ print(long_text)
 
 # COMMAND ----------
 
-# DBTITLE 1,Split Answer into Chunks
+# DBTITLE 1,Split Text into Chunks
 text_splitter = TokenTextSplitter(chunk_size=100, chunk_overlap=10)
-for chunk in text_splitter.split_text(answer):
+for chunk in text_splitter.split_text(long_text):
   print(chunk, '\n')
 
 # COMMAND ----------
@@ -145,26 +145,26 @@ for chunk in text_splitter.split_text(answer):
 # COMMAND ----------
 
 # DBTITLE 1,Chunking Configurations
-chunk_size = 2500
+chunk_size = 3500
 chunk_overlap = 400
 
 # COMMAND ----------
 
 # DBTITLE 1,Divide Inputs into Chunks
 @fn.udf('array<string>')
-def get_chunks(answer):
+def get_chunks(text):
 
   # instantiate tokenization utilities
   text_splitter = TokenTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
   
-  # split answer into chunks
-  return text_splitter.split_text(answer)
+  # split text into chunks
+  return text_splitter.split_text(text)
 
 
-# split answer into chunks
+# split text into chunks
 chunked_inputs = (
   raw_inputs
-    .withColumn('chunks', get_chunks('text')) # divide answers into chunks
+    .withColumn('chunks', get_chunks('text')) # divide text into chunks
     .drop('text')
     .withColumn('num_chunks', fn.expr("size(chunks)"))
     .withColumn('chunk', fn.expr("explode(chunks)"))
@@ -209,7 +209,7 @@ metadata_inputs = (
 
 # DBTITLE 1,Load Vector Store
 # identify embedding model that will generate embedding vectors
-embeddings = OpenAIEmbeddings(model='text-davinci-003')
+embeddings = OpenAIEmbeddings(model=config['openai_embedding_model'])
 
 # instantiate vector store object
 vector_store = FAISS.from_texts(

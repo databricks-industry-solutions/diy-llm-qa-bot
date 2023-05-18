@@ -168,7 +168,7 @@ def score_model(dataset):
 
 # COMMAND ----------
 
-# MAGIC %md And now we can test the endpoint:
+# MAGIC %md And now we can test the endpoint. Note that if we allow the endpoint to scale to zero, the first request after a long pause can take minutes, as it will require the endpoint to scale up from zero nodes.
 
 # COMMAND ----------
 
