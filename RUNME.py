@@ -93,18 +93,30 @@ job_json = {
                     }
                 ]
             },
-            # {
-            #     "job_cluster_key": "diy_llm_qa_bot_cluster",
-            #     "notebook_task": {
-            #         "notebook_path": f"03_Deploy_Application"
-            #     },
-            #     "task_key": "diy_llm_qa_bot_04",
-            #     "depends_on": [
-            #         {
-            #             "task_key": "diy_llm_qa_bot_03"
-            #         }
-            #     ]
-            # }
+            {
+                "job_cluster_key": "diy_llm_qa_bot_cluster",
+                "notebook_task": {
+                    "notebook_path": f"03_Evaluation"
+                },
+                "task_key": "diy_llm_qa_bot_03",
+                "depends_on": [
+                    {
+                        "task_key": "diy_llm_qa_bot_02"
+                    }
+                ]
+            },
+            {
+                "job_cluster_key": "diy_llm_qa_bot_cluster",
+                "notebook_task": {
+                    "notebook_path": f"04_Deploy_Application"
+                },
+                "task_key": "diy_llm_qa_bot_04",
+                "depends_on": [
+                    {
+                        "task_key": "diy_llm_qa_bot_03"
+                    }
+                ]
+            }
         ],
         "job_clusters": [
             {
