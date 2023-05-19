@@ -22,6 +22,18 @@
 
 # COMMAND ----------
 
+# MAGIC %md Initialize the paths we will use throughout the accelerator
+
+# COMMAND ----------
+
+# MAGIC %run "./util/notebook-config"
+
+# COMMAND ----------
+
+dbutils.fs.rm(config['vector_store_path'][5:], True)
+
+# COMMAND ----------
+
 # MAGIC %md © 2023 Databricks, Inc. All rights reserved. The source in this notebook is provided subject to the Databricks License. All included or referenced third party libraries are subject to the licenses set forth below.
 # MAGIC
 # MAGIC | library                                | description             | license    | source                                              |

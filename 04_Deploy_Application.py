@@ -175,14 +175,19 @@ def score_model(dataset):
 # DBTITLE 1,Test the Model Serving Endpoint
 # assemble question input
 queries = pd.DataFrame({'question':[
-  "How to read data with Delta Sharing?",
-  "What are Delta Live Tables datasets?",
-  "How to set up Unity Catalog?"
+  "What's the QPS limit for a serverless model serving request?"
 ]})
 
 score_model( 
    queries
     )
+
+# COMMAND ----------
+
+# MAGIC %md 
+# MAGIC Some observed limitations:
+# MAGIC * If we allow the endpoint to scale to zero, we will save cost when the bot is not queried. However, the first request after a long pause can take a few minutes, as it will require the endpoint to scale up from zero nodes
+# MAGIC * The timeout limit for a serverless model serving request is 60 seconds. If more than 3 questions are submitted in the same request, the model may time out. 
 
 # COMMAND ----------
 
