@@ -59,7 +59,8 @@ job_json = {
         "tags": {
             "usage": "solacc_testing",
             "group": "RCG",
-            "accelerator": "diy-llm-qa-bot"
+            "accelerator": "diy-llm-qa-bot",
+            "clusterSource": "solacc/0"
         },
         "tasks": [
             {
