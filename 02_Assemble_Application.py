@@ -304,7 +304,7 @@ with mlflow.start_run():
   _ = (
     mlflow.pyfunc.log_model(
       python_model=model,
-      extra_pip_requirements=['langchain==0.0.166', 'tiktoken==0.4.0', 'openai==0.27.6', 'faiss-cpu==1.7.4'],
+      extra_pip_requirements=['langchain==0.0.166', 'tiktoken==0.4.0', 'openai==0.27.6', 'faiss-cpu==1.7.4', 'typing-inspect==0.8.0', 'typing_extensions==4.5.0'],
       artifact_path='model',
       registered_model_name=config['registered_model_name']
       )
