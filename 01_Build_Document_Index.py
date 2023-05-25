@@ -203,7 +203,7 @@ metadata_inputs = (
 # MAGIC
 # MAGIC The key to setting up the vector store is to configure it with an embedding model that it will used to convert both the documents and any searchable text to an embedding (vector). You have a wide range of choices avaialble to you as you consider which embedding model to employ.  Some popular models include the [sentence-transformer](https://huggingface.co/models?library=sentence-transformers&sort=downloads) family of models available on the HuggingFace hub as well as the [OpenAI embedding models](https://platform.openai.com/docs/guides/embeddings/what-are-embeddings):
 # MAGIC
-# MAGIC **NOTE** The OpenAI API Key required with the OpenAIEmbeddings object is being set in notebook 00 and is made available as an environment variable per [these instructions](https://python.langchain.com/en/latest/ecosystem/openai.html#installation-and-setup).
+# MAGIC **NOTE** The OpenAI API key used by the OpenAIEmbeddings object is specified in an environment variable set during the earlier `%run` call to get configuration variables.
 
 # COMMAND ----------
 

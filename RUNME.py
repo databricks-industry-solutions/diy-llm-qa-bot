@@ -32,7 +32,7 @@ from solacc.companion import NotebookSolutionCompanion
 
 # COMMAND ----------
 
-# MAGIC %md Before setting up the rest of the accelerator, we need set up a few credentials in order to access the Cleanlab Studio grammatically. Here we demonstrate using the [Databricks Secret Scope](https://docs.databricks.com/security/secrets/secret-scopes.html) for credential management. 
+# MAGIC %md Before setting up the rest of the accelerator, we need set up an [OpenAI key in order to access OpenAI models](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key). Here we demonstrate using the [Databricks Secret Scope](https://docs.databricks.com/security/secrets/secret-scopes.html) for credential management. 
 # MAGIC
 # MAGIC Copy the block of code below, replace the name the secret scope and fill in the credentials and execute the block. After executing the code, The accelerator notebook will be able to access the credentials it needs.
 # MAGIC

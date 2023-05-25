@@ -54,7 +54,7 @@ question = "How to register a model on databricks?"
 
 # MAGIC %md Using our vector store, assembled in the prior notebook, we will retrieve document chunks relevant to the question: 
 # MAGIC
-# MAGIC **NOTE** The OpenAI API key used by the OpenAIEmbeddings object is specified in an environment variable set during the earlier call to get configuration variables.
+# MAGIC **NOTE** The OpenAI API key used by the OpenAIEmbeddings object is specified in an environment variable set during the earlier `%run` call to get configuration variables.
 
 # COMMAND ----------
 
