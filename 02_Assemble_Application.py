@@ -15,7 +15,7 @@
 # COMMAND ----------
 
 # DBTITLE 1,Install Required Libraries
-# MAGIC %pip install langchain==0.0.166 tiktoken==0.4.0 openai==0.27.6 faiss-cpu==1.7.4
+# MAGIC %pip install langchain==0.0.166 tiktoken==0.4.0 openai==0.27.6 faiss-cpu==1.7.4 typing-inspect==0.8.0 typing_extensions==4.5.0
 
 # COMMAND ----------
 
