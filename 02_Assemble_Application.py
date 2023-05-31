@@ -76,9 +76,9 @@ for doc in docs:
 
 # MAGIC %md We can now turn our attention to the prompt that we will send to the model.  This prompt needs to include placeholders for the *question* the user will submit and the document that we believe will provide the *context* for answering it.
 # MAGIC
-# MAGIC Please note that the prompt consists multiple prompt elements, defined using [prompt templates](https://python.langchain.com/en/latest/modules/prompts/chat_prompt_template.html).  In a nutshell, prompt templates allow us to define the basic structure of a prompt and more easily substitute variable data into them to trigger a response.  The system message prompt shown here provides instruction to the model about how we want it to respond.  The human message template provides the details about the user-initiated request.
+# MAGIC Please note that the prompt consists of multiple prompt elements, defined using [prompt templates](https://python.langchain.com/en/latest/modules/prompts/chat_prompt_template.html).  In a nutshell, prompt templates allow us to define the basic structure of a prompt and more easily substitute variable data into them to trigger a response.  The system message prompt shown here provides instruction to the model about how we want it to respond.  The human message template provides the details about the user-initiated request.
 # MAGIC
-# MAGIC The prompts along with the details about the model that will respond to the prompt are encapsulated within an [LLMChain object](https://python.langchain.com/en/latest/modules/chains/generic/llm_chain.html).  This object simply defines the basic structure for resolving a query and returning a reponse:
+# MAGIC The prompts along with the details about the model that will respond to the prompt are encapsulated within an [LLMChain object](https://python.langchain.com/en/latest/modules/chains/generic/llm_chain.html).  This object simply defines the basic structure for resolving a query and returning a response:
 
 # COMMAND ----------
 
@@ -132,7 +132,7 @@ for doc in docs:
 
 # MAGIC %md ##Step 2: Assemble Model for Deployment
 # MAGIC
-# MAGIC Having explored the basic steps involved in generating a response, let's wrap our logic in a class to make deployment easier.  Our class will be initialized by passing the LLM model defintion, a vector store retriever and a prompt to the class.  The *get_answer* method will serve as the primary method for submitting a question and getting a response:
+# MAGIC Having explored the basic steps involved in generating a response, let's wrap our logic in a class to make deployment easier.  Our class will be initialized by passing the LLM model definition, a vector store retriever and a prompt to the class.  The *get_answer* method will serve as the primary method for submitting a question and getting a response:
 
 # COMMAND ----------
 
@@ -259,7 +259,7 @@ class QABot():
 # COMMAND ----------
 
 # DBTITLE 1,Test the QABot Class
-# instatiate bot object
+# instantiate bot object
 qabot = QABot(llm, retriever, chat_prompt)
 
 # get response to question
@@ -273,7 +273,7 @@ qabot.get_answer(question)
 # MAGIC
 # MAGIC While MLflow now [supports](https://www.databricks.com/blog/2023/04/18/introducing-mlflow-23-enhanced-native-llm-support-and-new-features.html) both OpenAI and LangChain model flavors, the fact that we've written custom logic for our bot application means that we'll need to make use of the more generic [pyfunc](https://mlflow.org/docs/latest/python_api/mlflow.pyfunc.html#creating-custom-pyfunc-models) model flavor.  This model flavor allows us to write a custom wrapper for our model that gives us considerable control over how our model responds when deployed through standard, MLflow-provided deployment mechanisms. 
 # MAGIC
-# MAGIC To create a custom MLflow model, all we need to do is define a class wrapper of type *mlflow.pyfunc.PythonModel*. The *__init__* method will initialize an instance of our *QABot* class and persist it to an class variable.  And a *predict* method will serve as the standard interface for generating a reponse.  That method will receive our inputs as a pandas dataframe but we can write the logic with the knowledge that it will only be receiving one user-provided question at a time:
+# MAGIC To create a custom MLflow model, all we need to do is define a class wrapper of type *mlflow.pyfunc.PythonModel*. The *__init__* method will initialize an instance of our *QABot* class and persist it to an class variable.  And a *predict* method will serve as the standard interface for generating a response.  That method will receive our inputs as a pandas dataframe but we can write the logic with the knowledge that it will only be receiving one user-provided question at a time:
 
 # COMMAND ----------
 
@@ -341,7 +341,7 @@ client.transition_model_version_stage(
 
 # COMMAND ----------
 
-# MAGIC %md We can then retrieve the model from the registery and submit a few questions to verify the response:
+# MAGIC %md We can then retrieve the model from the registry and submit a few questions to verify the response:
 
 # COMMAND ----------
 

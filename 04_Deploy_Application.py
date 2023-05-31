@@ -30,7 +30,7 @@ latest_version = mlflow.MlflowClient().get_latest_versions(config['registered_mo
 
 # MAGIC %md ##Step 1: Deploy Model Serving Endpoint
 # MAGIC
-# MAGIC Models may typically be deployed to model sharing endpoints using either the Databricks workspace user-interface or a REST API.  Because our model depends on the deployment of a sensitive environment variable, we will need to leverage a relatively new model serving feature that is currently only available via the REST API.
+# MAGIC Models may typically be deployed to model serving endpoints using either the Databricks workspace user-interface or a REST API.  Because our model depends on the deployment of a sensitive environment variable, we will need to leverage a relatively new model serving feature that is currently only available via the REST API.
 # MAGIC
 # MAGIC See our served model config below and notice the `env_vars` part of the served model config - you can now store a key in a secret scope and pass it to the model serving endpoint as an environment variable.
 
