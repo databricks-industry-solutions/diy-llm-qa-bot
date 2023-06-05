@@ -24,7 +24,7 @@ _ = spark.catalog.setCurrentDatabase(config['database_name'])
 # DBTITLE 1,Set Environmental Variables for tokens
 import os
 
-os.environ['OPENAI_API_KEY'] = dbutils.secrets.get("solution-accelerator-cicd", "openai_api")
+# os.environ['OPENAI_API_KEY'] = dbutils.secrets.get("solution-accelerator-cicd", "openai_api")
 
 # COMMAND ----------
 
